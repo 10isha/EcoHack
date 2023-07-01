@@ -12,14 +12,14 @@ import json
 import pandas as pd
 import plotly.express as px
 from IPython.display import display
+import joblib
 
 
-
-weather_requests = requests.get(
-         "http://api.openweathermap.org/data/2.5/air_pollution?lat=50&lon=50&appid=db6982460167642c1b96e97548663c4b"
-    )
-json_data = weather_requests.json()
-df1 = pd.json_normalize(json_data)
+# weather_requests = requests.get(
+#          "http://api.openweathermap.org/data/2.5/air_pollution?lat=50&lon=50&appid=db6982460167642c1b96e97548663c4b"
+#     )
+# json_data = weather_requests.json()
+# df1 = pd.json_normalize(json_data)
 
 
 # Streamlit Display
@@ -63,7 +63,30 @@ def plot_temperature(df,min_t,max_t,days):
     ]
 )
    
+def run_model(place):
+    mgr = owm.airpollution_manager()
+    mgr2 = owm.geocoding_manager()
+    list_of_locations = mgr2.geocode(place)
+    placehere = list_of_locations[0]  # taking the first London in the list
+    air_status = mgr.air_quality_at_coords(placehere.lat, placehere.lon)
+    X = [[air_status.pm2_5,air_status.pm10,air_status.no,air_status.no2,32.448956,air_status.nh3,air_status.co,air_status.so2,air_status.o3,3.700361,10.323696,2.557439]]
+    loaded_model = joblib.load('model_Air.sav')
+    answer = loaded_model.predict(X)
+    return answer[0]
 
+def mapping(aqi):
+    if aqi>=0 and aqi<=50:
+        return "Good"
+    elif aqi>=51 and aqi<=100:
+        return "Satisfactory"
+    elif aqi>=101 and aqi<=200:
+        return "Moderate"
+    elif aqi>=201 and aqi<=300:
+        return "Poor"
+    elif aqi>=301 and aqi<=400:
+        return "Very Poor"
+    else:
+        return "Severe"
 
 def display_detail(place):
     mgr = owm.airpollution_manager()
@@ -77,7 +100,8 @@ def display_detail(place):
     dates_2=[]
     air_status = mgr.air_quality_at_coords(placehere.lat, placehere.lon)
     st.title(f"📍Air Quality {place[0].upper() + place[1:]} currently: ")
-    st.write(f"## AQI: {air_status.aqi}")
+    aqi = run_model(place)
+    st.write(f"## AQI Predicted by our Model: {int(aqi)} , {mapping(aqi)}")
     st.write(f"## CO Levels: {air_status.co} ")
     st.write(f"### Ozone Levels : {air_status.o3} ")
     st.write(f"### SO2 Levels: {air_status.so2} ")
