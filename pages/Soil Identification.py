@@ -4,8 +4,8 @@ from PIL import Image, ImageOps
 import numpy as np
 
 st.title("Soil Type Detecttion")
-# st.header("Brain Tumor MRI Classification Example")
-st.text("Detect the type of Soil in your area within Minutes")
+st.header("Detect the type of Soil in your area within Minutes")
+st.text("Upload the image of your sample")
 
 def teachable_machine_classification(img, weights_file):
     # Load the model
@@ -33,11 +33,21 @@ def teachable_machine_classification(img, weights_file):
 uploaded_file = st.file_uploader("Choose an Image", type="jpg")
 if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded MRI.', use_column_width=True)
+        st.image(image, caption='Uploaded Sample.', use_column_width=True)
         st.write("")
         st.write("Classifying...")
         label = teachable_machine_classification(image, 'my_model.h5')
         if label == 0:
-            st.write("The MRI scan has a brain tumor")
-        else:
-            st.write("The MRI scan is healthy")
+            st.success("Black Soil")
+        elif label==1:
+            st.success("Cinder Soil")
+        elif label==2:
+            st.success("Laterite Soil")
+        elif label==3:
+            st.success("Peat Soil")
+        elif label==4:
+            st.success("Yellow Soil")
+
+
+
+

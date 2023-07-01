@@ -15,6 +15,7 @@ from IPython.display import display
 from pyowm.tiles.enums import MapLayerEnum
 from pyowm.utils.geo import Point
 from pyowm.commons.tile import Tile
+from socket import timeout
 
 weather_requests = requests.get(
         "https://api.openweathermap.org/data/2.5/weather?q=indore&appid=db6982460167642c1b96e97548663c4b"
@@ -224,9 +225,11 @@ if b:
     if place != "":
         try:
             weather_detail(place, unit, g_type)
-
+        except timeout as e:
+            print ("timeout")
+            pass
         except NotFoundError:
             st.write("Please enter a Valid city name")
-
+     
 
 
