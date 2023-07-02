@@ -11,9 +11,13 @@ import pandas as pd
 import plotly.express as px
 import joblib
 
-
+st.set_page_config(
+    page_title="Air Quality",
+    page_icon="✅",
+    layout="centered",
+)
 # Streamlit Display
-st.set_page_config(layout="centered")
+
 st.title(" 📅 Find your Air Quality 🌥️ ☔ ")
 
 

@@ -3,7 +3,12 @@ import keras
 from PIL import Image, ImageOps
 import numpy as np
 
-st.title("Soil Type Detecttion")
+st.set_page_config(
+    page_title="Soil Identification",
+    page_icon="✅",
+    layout="centered",
+)
+st.title("Soil Type Detection")
 st.header("Detect the type of Soil in your area within Minutes")
 st.text("Upload the image of your sample")
 

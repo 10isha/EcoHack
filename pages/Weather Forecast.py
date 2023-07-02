@@ -21,7 +21,11 @@ from io import BytesIO
 sound_file = BytesIO()
 
 # Streamlit Display
-st.set_page_config(layout="centered")
+st.set_page_config(
+    page_title="Weather Forecast",
+    page_icon="✅",
+    layout="centered",
+)
 st.title(" 📅 WEATHER FORECASTER 🌥️ ☔ ")
 
 st.header("🌐 Enter the name of City and Select Temperature Unit")
