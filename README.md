@@ -47,7 +47,10 @@ https://github.com/10isha/EcoHack/assets/96648129/09af065d-4e1e-4e92-bfbf-d0c3a3
 
 
 ## Run Locally
-
+Please create a virtual environment before cloning this project
+```bash
+python -m virtualenv myenv
+```
 Clone the project
 
 ```bash
