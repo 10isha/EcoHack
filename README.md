@@ -1,5 +1,5 @@
 
-## Contents
+## EcoHack
 
 ### **Contents**
 - [Description](#Introduction)
