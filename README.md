@@ -99,10 +99,10 @@ Test Accuracy of best fitted pipeline - 63% (lack of dataset Availability)
 ## Appendix
 
 Datasets Used- 
-Dashboard Creation-https://www.kaggle.com/datasets/akkshaysr/nwmp-water-quality-data-for-indian-lakes?rvi=1
-Water Potability-https://www.kaggle.com/code/alperkaraca1/water-quality-prediction?rvi=1
-Soil Classification- https://www.kaggle.com/code/prasanshasatpathy/soil-type-image-classification?rvi=1
-AQI Predicition-https://www.kaggle.com/datasets/azminetoushikwasi/aqi-air-quality-index-scheduled-daily-update
+1)Dashboard Creation-https://www.kaggle.com/datasets/akkshaysr/nwmp-water-quality-data-for-indian-lakes?rvi=1
+2)Water Potability-https://www.kaggle.com/code/alperkaraca1/water-quality-prediction?rvi=1
+3)Soil Classification- https://www.kaggle.com/code/prasanshasatpathy/soil-type-image-classification?rvi=1
+4)AQI Predicition-https://www.kaggle.com/datasets/azminetoushikwasi/aqi-air-quality-index-scheduled-daily-update
 
 API's Used- 
 1) Air Pollution Data - https://openweathermap.org/api/air-pollution
