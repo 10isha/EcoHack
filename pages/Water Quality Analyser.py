@@ -5,9 +5,9 @@ import os
 import warnings
 
 
-st.set_page_config(page_title="Your WaterQuality dashboard",layout="wide")
+st.set_page_config(page_title="Your Waterquality dashboard",layout="wide")
 
-st.title(" :bar_chart: Your WaterQuality dashboard")
+st.title(" :bar_chart: Your :blue[Waterquality] dashboard")
 
 df = pd.read_csv("water_data.csv")
 
@@ -66,27 +66,27 @@ else:
 category_df = filtered_df.groupby(by = ["State Name"], as_index = False)["Max pH"].sum()
 
 with col1:
-    st.subheader("State wise Max pH")
+    st.subheader("State Wise Max pH")
     fig = px.bar(category_df, x = "State Name", y = "Max pH",
                  template = "seaborn")
-    st.plotly_chart(fig,use_container_width=True, height = 200)
+    st.plotly_chart(fig,use_container_width=True, height = 200,theme="streamlit")
 
 with col2:
-    st.subheader("Water Body wise Max pH")
+    st.subheader("Waterbody Wise Max pH")
     fig = px.pie(filtered_df, values = "Max pH", names = "Type Water Body", hole = 0.5)
     fig.update_traces(text = filtered_df["Type Water Body"], textposition = "outside")
-    st.plotly_chart(fig,use_container_width=True)
+    st.plotly_chart(fig,use_container_width=True,theme="streamlit")
 
 cl1, cl2 = st.columns((2))
 with cl1:
-    with st.expander("StateWise_ViewData"):
+    with st.expander("State_wise_View_Data"):
         st.write(category_df.style.background_gradient(cmap="Blues"))
         csv = category_df.to_csv(index = False).encode('utf-8')
         st.download_button("Download Data", data = csv, file_name = "Category.csv", mime = "text/csv",
                             help = 'Click here to download the data as a CSV file')
 
 with cl2:
-    with st.expander("Waterbody_wise__ViewData"):
+    with st.expander("Waterbody_wise__View_Data"):
         region = filtered_df.groupby(by = "Type Water Body", as_index = False)["Max pH"].sum()
         st.write(region.style.background_gradient(cmap="Oranges"))
         csv = region.to_csv(index = False).encode('utf-8')
@@ -94,7 +94,7 @@ with cl2:
                         help = 'Click here to download the data as a CSV file')
         
 # filtered_df["month_year"] = filtered_df["Order Date"].dt.to_period("M")
-st.subheader('Time Series Analysis')
+st.subheader("Max pH Variation of Water over the years")
 
 
 linechart = pd.DataFrame(filtered_df.groupby(filtered_df["Year"])["Max pH"].sum()).reset_index()
@@ -107,27 +107,27 @@ st.subheader("Hierarchical view of Max Temperature using TreeMap")
 fig3 = px.treemap(filtered_df, path = ["Type Water Body","State Name","Year"], values = "Max pH",hover_data = ["Max pH"],
                   color = "Year")
 fig3.update_layout(width = 800, height = 650)
-st.plotly_chart(fig3, use_container_width=True)
+st.plotly_chart(fig3, use_container_width=True,theme="streamlit")
 
 chart1, chart2 = st.columns((2))
 with chart1:
-    st.subheader('Year wise Max temperature')
+    st.subheader('Year wise max temperature')
     fig = px.pie(filtered_df, values = "Max Temperature", names = "Year", template = "plotly_dark")
     fig.update_traces(text = filtered_df["Year"], textposition = "inside")
-    st.plotly_chart(fig,use_container_width=True)
+    st.plotly_chart(fig,use_container_width=True,theme="streamlit")
 
 with chart2:
     st.subheader('State wise max temperature')
     fig = px.pie(filtered_df, values = "Max Temperature", names = "State Name", template = "gridon")
     fig.update_traces(text = filtered_df["State Name"], textposition = "inside")
-    st.plotly_chart(fig,use_container_width=True)
+    st.plotly_chart(fig,use_container_width=True,theme="streamlit")
 
 import plotly.figure_factory as ff
 st.subheader(":point_right: Year wise State Max Dissolved Oxygen")
 with st.expander("Summary_Table"):
     df_sample = df[0:5][["State Name","Type Water Body","Year","Max pH","Max Temperature","Max Dissolved Oxygen"]]
     fig = ff.create_table(df_sample, colorscale = "Cividis")
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, use_container_width=True,theme="streamlit")
 
     # st.markdown("Year wise Max Dissolved Oxygen Table")
     # sub_category_Year = pd.pivot_table(data = filtered_df, values = "Max Dissolved Oxygen", index = ["Year"],columns = "Year")

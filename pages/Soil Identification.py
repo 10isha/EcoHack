@@ -6,10 +6,10 @@ import numpy as np
 st.set_page_config(
     page_title="Soil Identification",
     page_icon="✅",
-    layout="centered",
+    layout="wide",
 )
-st.title("Soil Type Detection")
-st.header("Detect the type of Soil in your area within Minutes")
+st.title(":red[Soil] Type Detection")
+st.header("Detect the type of soil in your area within seconds")
 st.text("Upload the image of your sample")
 
 def teachable_machine_classification(img, weights_file):

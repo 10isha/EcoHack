@@ -24,13 +24,13 @@ sound_file = BytesIO()
 st.set_page_config(
     page_title="Weather Forecast",
     page_icon="✅",
-    layout="centered",
+    layout="wide",
 )
-st.title(" 📅 WEATHER FORECASTER 🌥️ ☔ ")
+st.title("WEATHER FORECASTER 🌥️")
 
-st.header("🌐 Enter the name of City and Select Temperature Unit")
-place = st.text_input("NAME OF THE CITY 🌆 ", " ")
-unit = st.selectbox(" SELECT TEMPERATURE UNIT 🌡 ", ("Celsius", "Fahrenheit"))
+st.header(" Enter the name of city and select Temperature Unit 🌐")
+place = st.text_input("Enter the City Name")
+unit = st.selectbox("Select the Temperature Unit", ("Celsius", "Fahrenheit"))
 b = st.button("SUBMIT")
 
 # To deceive error of pyplot global warning
@@ -80,47 +80,47 @@ def weather_detail(place, unit):
     df = pd.DataFrame(list(zip(days,temps,hum)),
                columns =['Days', 'Temperature','Humidity'])
     weather = obs.weather
-    st.title(f"📍 Weather at {place[0].upper() + place[1:]} currently: ")
+    st.title(f"Weather at :violet[{place[0].upper() + place[1:]}] currently: ")
     if unit_c == 'celsius':
-        st.write(f"## 🌡️ Temperature: {temperature} °C")
+        st.write(f"### :red[Temperature]: {temperature} °C")
     else:
-        st.write(f"## 🌡️  Temperature: {temperature} F")
-    st.write(f"## ☁️ Sky: {weather.detailed_status}")
-    st.write(f"## 🌪  Wind Speed: {round(weather.wind(unit='km_hour')['speed'])} km/h")
-    st.write(f"### ⛅️Sunrise Time : {weather.sunrise_time(timeformat='iso')} GMT")
-    st.write(f"### ☁️  Sunset Time : {weather.sunset_time(timeformat='iso')} GMT")
+        st.write(f"### Temperature: {temperature} F")
+    st.write(f"### :blue[Sky]: {weather.detailed_status}")
+    st.write(f"### :blue[Wind] Speed: {round(weather.wind(unit='km_hour')['speed'])} km/h")
+    st.write(f"### :orange[Sunrise] Time : {weather.sunrise_time(timeformat='iso')} GMT")
+    st.write(f"### :orange[Sunset] Time : {weather.sunset_time(timeformat='iso')} GMT")
     # Expected Temperature Alerts
-    st.title("❄️Expected Temperature Changes/Alerts: ")
+    st.title("Expected Temperature Alerts:")
     text=""
     if forecaster.will_have_fog():
-        text = "FOG ALERT"
-        st.write("### ▶️FOG ALERT🌁!!")
+        text = "FOG"
+        st.write("### FOG ALERT 🌁")
     if forecaster.will_have_rain():
-        text = "RAIN ALERT"
-        st.write("### ▶️RAIN ALERT☔!!")
+        text = "RAIN"
+        st.write("### RAIN ALERT ☔")
     if forecaster.will_have_storm():
-        text = "STORM ALERT"
-        st.write("### ▶️STORM ALERT⛈️!!")
+        text = "STORM"
+        st.write("### STORM ALERT ⛈️")
     if forecaster.will_have_snow():
-        text = "SNOW ALERT"
-        st.write("### ▶️ SNOW ALERT❄️!!")
+        text = "SNOW"
+        st.write("### SNOW ALERT ❄️")
     if forecaster.will_have_tornado():
-        text = "TORNADO ALERT"
-        st.write("### ▶️TORNADO ALERT🌪️!!")
+        text = "TORNADO"
+        st.write("### TORNADO ALERT 🌪️")
     if forecaster.will_have_hurricane():
-        text = "HURRICANE ALERT"
-        st.write("### ▶️HURRICANE ALERT🌀")
+        text = "HURRICANE"
+        st.write("### HURRICANE ALERT 🌀")
     if forecaster.will_have_clear():
-        text = "CLEAR WEATHER PREDICTED"
-        st.write("### ▶️CLEAR WEATHER PREDICTED🌞!!")
+        text = "CLEAR WEATHER"
+        st.write("### CLEAR WEATHER PREDICTED 🌞")
     if forecaster.will_have_clouds():
         text = "CLOUDY SKIES"
-        st.write("### ▶️CLOUDY SKIES⛅")
+        st.write("### CLOUDY SKIES ")
     tts = gTTS("The temperature at" +place+ "is" +str(temperature)+ "The sky has" + weather.detailed_status + "There is an Alert for" + text , lang='en')
     tts.write_to_fp(sound_file)
     st.audio(sound_file)
     st.write('                ')
-    st.write("Temperature Forecast")
+    st.write("## Temperature Forecast")
     fig = px.bar(df,x='Days', y='Temperature')
     fig.update_layout(
     updatemenus=[
@@ -149,16 +149,16 @@ def weather_detail(place, unit):
 )   
     st.plotly_chart(fig, theme="streamlit")
     st.write('                  ')
-    st.write("Humidity Forecast")
-    fig = px.bar(df,x='Days', y='Humidity')
-    fig.update_layout(
+    st.write("## Humidity Forecast")
+    fig1 = px.bar(df,x='Days', y='Humidity')
+    fig1.update_layout(
     updatemenus=[
         dict(
             type="buttons",
             direction="down",
             buttons=list([
                 dict(
-                    args=["type", "bar"],
+                    args=["type", "Bar"],
                     label="Bar Plot",
                     method="restyle"
                 ),
@@ -176,13 +176,13 @@ def weather_detail(place, unit):
         ),
     ]
     )
-    st.plotly_chart(fig, theme="streamlit")
+    st.plotly_chart(fig1, theme="streamlit")
     st.write('                 ')
     i = 0
-    st.write(f"# 📆 Date :  Max - Min  ({unit})")
+    st.write(f"## :red[Maximum-Minimum Temperature variation over the days({unit})]")
     for obj in days:
         ta = (obj.strftime("%d/%m"))
-        st.write(f'### ➡️ {ta} :\t   ({max_t[i]} - {min_t[i]})')
+        st.write(f'### :arrow_forward: {ta} :\t   ({max_t[i]} - {min_t[i]})')
         i += 1
     
 

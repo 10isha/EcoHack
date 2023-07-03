@@ -7,13 +7,13 @@ import joblib
 st.set_page_config(
     page_title="Water Quality",
     page_icon="✅",
-    layout="centered",
+    layout="wide",
 )
-st.title("Is the Water Potable?")
+st.title("Is :blue[Water] Potable?")
 
 
 
-st.header("Select your contamination levels and Our model will tell you")
+st.subheader("Select your contamination levels of water and our model will tell you!")
 col1, col2 = st.columns(2)
 with col1:
    hardness = st.slider("Hardness",50,350)
@@ -33,6 +33,6 @@ answer=""
 if b:
    answer = loaded_model.predict(X)
    if answer[0]== 1 :
-      st.success("The Water is Potable!")
+      st.success("The Water is Potable!", icon="✅")
    else:
-      st.error("The Contamination level is High!")
+      st.error("The Contamination level is High!",icon="🚨")

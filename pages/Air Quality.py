@@ -14,15 +14,15 @@ import joblib
 st.set_page_config(
     page_title="Air Quality",
     page_icon="✅",
-    layout="centered",
+    layout="wide",
 )
 # Streamlit Display
 
-st.title(" 📅 Find your Air Quality 🌥️ ☔ ")
+st.title("Find your :blue[air] quality")
 
 
-st.header("🌐 Enter the name of City")
-place = st.text_input("NAME OF THE CITY 🌆 ", " ")
+st.subheader("Enter the name of City 🌐")
+place = st.text_input("City Name")
 b = st.button("SUBMIT")
 
 # To deceive error of pyplot global warning
@@ -57,12 +57,12 @@ def display_detail(place):
     X = [[air_status.pm2_5,air_status.pm10,air_status.no,air_status.no2,32.448956,air_status.nh3,air_status.co,air_status.so2,air_status.o3,3.700361,10.323696,2.557439]]
     loaded_model = joblib.load('model_Air.sav')
     answer = loaded_model.predict(X)
-    st.title(f"📍Air Quality {place[0].upper() + place[1:]} currently: ")
+    st.title(f"Air quality at {place[0].upper() + place[1:]} currently: ")
     aqi = answer[0]
-    st.write(f"## AQI Predicted by our Model: {int(aqi)} , {mapping(aqi)}")
-    st.write(f"## CO Levels: {air_status.co} ")
-    st.write(f"### Ozone Levels : {air_status.o3} ")
-    st.write(f"### SO2 Levels: {air_status.so2} ")
+    st.write(f"## AQI predicted by our Model: {int(aqi)} , {mapping(aqi)}")
+    st.write(f"### :blue[CO] Levels: {air_status.co} ")
+    st.write(f"### :blue[O3] Levels : {air_status.o3} ")
+    st.write(f"### :blue[SO2]  Levels: {air_status.so2} ")
     list_forecast = mgr.air_quality_forecast_at_coords(placehere.lat, placehere.lon)
     for air in list_forecast:
       day = datetime.utcfromtimestamp(air.reference_time())
@@ -81,7 +81,7 @@ def display_detail(place):
             o3[-1] = air.o3
     df = pd.DataFrame(list(zip(days,co,so2,o3)),
                columns =['Days', 'CO','SO2','O3'])
-    st.write('CO Levels Forecasting')
+    st.title('CO levels Forecasting')
     fig1 = px.bar(df,x='Days', y='CO')
     fig1.update_layout(
       updatemenus=[
@@ -105,7 +105,7 @@ def display_detail(place):
 )
     st.plotly_chart(fig1, theme="streamlit")
     st.write('                ')
-    st.write('SO2 Levels Forecasting')
+    st.title('SO2 levels Forecasting')
     fig2 = px.bar(df ,x='Days', y='SO2')
     fig2.update_layout(
         updatemenus=[
@@ -129,7 +129,7 @@ def display_detail(place):
 )   
     st.plotly_chart(fig2, theme="streamlit")
     st.write('                ')
-    st.write("O3 Levels Forecasting")
+    st.title("O3 levels Forecasting")
     fig3 = px.bar(df ,x='Days', y='O3')
     fig3.update_layout(
       updatemenus=[
