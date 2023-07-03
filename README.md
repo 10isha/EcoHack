@@ -78,10 +78,18 @@ Yolo model: You Only Look Once (YOLO) family of detection frameworks aim to buil
 Yolov5 Model weights pretrained for animal detection were used for this process,classifiying animals into 13 categories - Tiger,Giraffe,Bear,Lion,Elephant,Deer,Wolf,Bull,Monkey,Leopord,Rhinoceros,Hippo,Cattle
 
 2)Soil Detection- 
-Custom Convolutional Networks Trained manually to detect Soil into 5 types - Black Soil,Peat Soil,Cinder Soil,Yellow Soil,Laterite Soil was used.
+Custom Convolutional Networks Trained to Classify Soil into 5 types based on Images- Black Soil,Peat Soil,Cinder Soil,Yellow Soil,Laterite Soil were used.
+Link to the Training Notebook- https://www.kaggle.com/code/tanisha3/soil-type
 
 3)Air Quality prediction-
-An App
+Dataset Was fitted with AutoML Tool(TPOT) to find the Pipeline with Best Accuracy(ExtraTrees Regressor).This Pipeline is utilised in predicting the AQI Index of a city by fetching Current Air Quality Data from Open Weather API and  predicting the AQI Index.
+Link to the Model Fitting Notebook- https://colab.research.google.com/drive/1gAR7ic3UP36ina4ESjAwaqI-bepIZ_aU?usp=sharing
+Test Accuracy (R2 Score)- 94%
+
+4)Water Potability Detection-
+A suitable dataset was fiited with AutoML(TPOT) to find out the best fitted pipeline(Extra trees Classifier).This pipeline takes data from the user percentages of various contaminants and tells them whether the water is fit for drinking or not.
+Link to Model fitting Notebook- https://colab.research.google.com/drive/1ozEDdkiXTP2DndYojRpKifFYmQtRJpIM?usp=sharing
+Test Accuracy of best fitted pipeline - 63% (lack of dataset Availability)
 
 ## Documentation
 
@@ -90,7 +98,18 @@ An App
 
 ## Appendix
 
-Datasets Used-
+Datasets Used- 
+Dashboard Creation-https://www.kaggle.com/datasets/akkshaysr/nwmp-water-quality-data-for-indian-lakes?rvi=1
+Water Potability-https://www.kaggle.com/code/alperkaraca1/water-quality-prediction?rvi=1
+Soil Classification- https://www.kaggle.com/code/prasanshasatpathy/soil-type-image-classification?rvi=1
+AQI Predicition-https://www.kaggle.com/datasets/azminetoushikwasi/aqi-air-quality-index-scheduled-daily-update
 
-API's Used-
+API's Used- 
+1) Air Pollution Data - https://openweathermap.org/api/air-pollution
+2) Weather Forecasting - https://openweathermap.org/current
+
+Models used -
+https://docs.ultralytics.com/yolov5/
+Pretrained Weights-
+https://github.com/SaiSwarup27/Animal-Intrusion-Detection/blob/main/yolov5/best.pt
 
