@@ -53,6 +53,10 @@ Clone the project
 ```bash
  git clone https://github.com/10isha/EcoHack.git
 ```
+Move to the folder
+```bash
+cd EcoHack
+```
 Install dependencies
 
 ```bash
