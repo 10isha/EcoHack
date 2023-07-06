@@ -1,5 +1,5 @@
 
-## EcoHack
+## EcoHack-Google Girl Hackathon-Ideathon Round3
 
 ### **Contents**
 - [Description](#Introduction)
